@@ -5,8 +5,8 @@
 const https = require('https');
 const { loadavg } = require('os');
 
-function printMessage(location, currentTemp) {
-    const message = `The current temperature in ${location} is ${currentTemp}F.`;
+function printMessage(location, currentTemp, humidity) {
+    const message = `The current temperature in ${location} is ${currentTemp}F with a humidity of ${humidity}%.`;
     console.log(message);
 }
 
@@ -18,7 +18,7 @@ function getWeather(location) {
         });
         response.on('end', () => {
             const profile = JSON.parse(body)
-            printMessage(profile.name, profile.main.temp);
+            printMessage(profile.name, profile.main.temp, profile.main.humidity);
         });
     });
 }
